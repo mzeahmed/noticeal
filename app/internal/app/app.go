@@ -35,7 +35,7 @@ func Run() error {
 		return fmt.Errorf("migrate database: %w", err)
 	}
 
-	handler := router.New(version.Version, cfg.Auth.Token, log)
+	handler := router.New(db, version.Version, cfg.Auth.Token, log)
 
 	server := &http.Server{
 		Addr:              cfg.Server.Addr(),

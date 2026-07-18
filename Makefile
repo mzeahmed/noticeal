@@ -14,7 +14,7 @@ RESET  := \033[0m
         run dev build install \
         fmt vet lint test check \
         tidy update \
-        migrate-up migrate-down migrate-status migrate-create \
+        migrate-up migrate-down migrate-status migrate-create sqlc \
         release-build release-snapshot release-check \
         doctor version clean
 
@@ -89,6 +89,9 @@ migrate-status: ## Show migration status
 migrate-create: ## Create a new SQL migration (NAME=create_events_table)
 	@test -n "$(NAME)" || (echo "Usage: make migrate-create NAME=create_events_table" && exit 1)
 	goose -dir app/migrations create $(NAME) sql
+
+sqlc: ## Regenerate Go code from SQL queries
+	cd app && sqlc generate
 
 # ==============================================================================
 # Release

@@ -3,6 +3,7 @@
 package router
 
 import (
+	"database/sql"
 	"log/slog"
 	"net/http"
 
@@ -13,11 +14,11 @@ import (
 
 // New builds and returns the application's top-level http.Handler, with all
 // module routes registered on a fresh http.ServeMux.
-func New(appVersion, authToken string, log *slog.Logger) http.Handler {
+func New(db *sql.DB, appVersion, authToken string, log *slog.Logger) http.Handler {
 	mux := http.NewServeMux()
 
 	health.New(appVersion).RegisterRoutes(mux)
-	events.New(log).RegisterRoutes(mux, auth.Authenticate(authToken))
+	events.New(db, log).RegisterRoutes(mux, auth.Authenticate(authToken))
 
 	return mux
 }

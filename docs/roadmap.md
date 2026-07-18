@@ -36,9 +36,9 @@ Build a solid foundation for the project.
 - [x] Configuration
 - [x] Logger
 - [x] HTTP server
-- [ ] SQLite
+- [x] SQLite
 - [x] Goose
-- [ ] sqlc
+- [x] sqlc
 
 ---
 

@@ -2,6 +2,7 @@
 package events
 
 import (
+	"database/sql"
 	"log/slog"
 	"net/http"
 )
@@ -12,10 +13,14 @@ type Module struct {
 	handler *Handler
 }
 
-// New builds an events Module with its handler dependencies initialized.
-func New(log *slog.Logger) *Module {
+// New builds an events Module with its service and handler dependencies
+// initialized.
+func New(db *sql.DB, log *slog.Logger) *Module {
+	service := NewService(db)
+	handler := NewHandler(service, log)
+
 	return &Module{
-		handler: NewHandler(log),
+		handler: handler,
 	}
 }
 

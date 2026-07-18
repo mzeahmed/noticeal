@@ -1,15 +1,23 @@
 package events
 
-import "errors"
+import (
+	"errors"
+	"time"
+)
 
 // Event is the internal representation of a notification request.
+//
+// ID and CreatedAt are populated by Service.Create once the event is
+// persisted; a client-supplied value for either is ignored.
 type Event struct {
-	Source  string            `json:"source"`
-	Type    string            `json:"type"`
-	Status  string            `json:"status"`
-	Title   string            `json:"title"`
-	Message string            `json:"message"`
-	Data    map[string]string `json:"data,omitempty"`
+	ID        int64             `json:"id,omitempty"`
+	Source    string            `json:"source"`
+	Type      string            `json:"type"`
+	Status    string            `json:"status"`
+	Title     string            `json:"title"`
+	Message   string            `json:"message"`
+	Data      map[string]string `json:"data,omitempty"`
+	CreatedAt time.Time         `json:"created_at"`
 }
 
 // Validate checks that every required field is present.
