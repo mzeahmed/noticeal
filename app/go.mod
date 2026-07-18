@@ -3,7 +3,6 @@ module github.com/mzeahmed/noticeal
 go 1.26.5
 
 require (
-	github.com/go-chi/chi/v5 v5.3.1
 	github.com/pressly/goose/v3 v3.27.2
 	gopkg.in/yaml.v3 v3.0.1
 	modernc.org/sqlite v1.54.0

@@ -4,11 +4,13 @@ package app
 
 import (
 	"fmt"
+	"net/http"
+	"time"
 
-	"github.com/mzeahmed/noticeal/internal/api"
 	"github.com/mzeahmed/noticeal/internal/config"
 	"github.com/mzeahmed/noticeal/internal/database"
 	"github.com/mzeahmed/noticeal/internal/logger"
+	"github.com/mzeahmed/noticeal/internal/router"
 	"github.com/mzeahmed/noticeal/internal/version"
 )
 
@@ -33,14 +35,22 @@ func Run() error {
 		return fmt.Errorf("migrate database: %w", err)
 	}
 
-	server := api.NewServer(cfg.Server.Addr(), version.Version, cfg.Auth.Token, log)
+	handler := router.New(version.Version, cfg.Auth.Token, log)
+
+	server := &http.Server{
+		Addr:              cfg.Server.Addr(),
+		Handler:           handler,
+		ReadHeaderTimeout: 5 * time.Second,
+		ReadTimeout:       5 * time.Second,
+		WriteTimeout:      10 * time.Second,
+	}
 
 	log.Info("starting noticeal",
 		"version", version.Version,
 		"addr", cfg.Server.Addr(),
 	)
 
-	if err := server.Start(); err != nil {
+	if err := server.ListenAndServe(); err != nil {
 		return fmt.Errorf("start server: %w", err)
 	}
 

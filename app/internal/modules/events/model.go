@@ -1,5 +1,4 @@
-// Package event defines the Event model Noticeal receives over its API.
-package event
+package events
 
 import "errors"
 

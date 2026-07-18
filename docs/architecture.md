@@ -182,13 +182,15 @@ app/
     internal/
 
         app/
-        api/
         config/
         database/
-        dispatcher/
-        event/
         logger/
-        notifier/
+        modules/
+            auth/
+            events/
+            health/
+        response/
+        router/
         version/
 
     config/
@@ -211,15 +213,25 @@ Makefile
 
 # Package Responsibilities
 
-## api
+## router
 
-HTTP server.
+Builds the application's top-level `http.Handler` on a standard library `http.ServeMux`, by registering each module's routes onto it. No third-party router.
 
-Responsibilities:
+---
 
-- routing
-- request validation
-- JSON responses
+## modules
+
+Each module owns one feature end-to-end: its handler, its routes (via a `RegisterRoutes` method), and, where relevant, its own model and business logic.
+
+- **health** — `GET /health` and `GET /version`.
+- **events** — `POST /api/v1/events`; owns the `Event` model and its validation.
+- **auth** — the bearer token middleware guarding authenticated routes.
+
+---
+
+## response
+
+Shared helper for writing JSON HTTP responses, used by every module's handlers.
 
 ---
 
@@ -234,12 +246,6 @@ Coordinates notification delivery.
 Contains every notification implementation.
 
 Each notifier is independent.
-
----
-
-## event
-
-Defines the Event model shared across the application.
 
 ---
 
