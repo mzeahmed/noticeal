@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/mzeahmed/noticeal/internal/response"
+	"github.com/mzeahmed/coelakit/response"
 )
 
 const bearerPrefix = "Bearer "
@@ -19,9 +19,7 @@ func Authenticate(token string) func(http.Handler) http.Handler {
 			header := r.Header.Get("Authorization")
 
 			if !strings.HasPrefix(header, bearerPrefix) || strings.TrimPrefix(header, bearerPrefix) != token {
-				response.JSON(w, http.StatusUnauthorized, map[string]string{
-					"error": "invalid or missing bearer token",
-				})
+				response.Error(w, http.StatusUnauthorized, "invalid or missing bearer token")
 
 				return
 			}

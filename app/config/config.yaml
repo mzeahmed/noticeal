@@ -8,7 +8,7 @@ auth:
   token: change-me
 
 database:
-  path: ./data/noticeal.db
+  path: ./data/noticoel.db
 
 notifiers:
 

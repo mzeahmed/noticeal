@@ -1,5 +1,5 @@
 # ==============================================================================
-# Noticeal - Development Makefile
+# Noticoel - Development Makefile
 # ==============================================================================
 
 .DEFAULT_GOAL := help
@@ -20,7 +20,7 @@ RESET  := \033[0m
 
 help: ## Show available commands
 	@echo ""
-	@echo "$(BLUE)Noticeal Development Commands$(RESET)"
+	@echo "$(BLUE)Noticoel Development Commands$(RESET)"
 	@echo ""
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z0-9_-]+:.*##/ {printf "  \033[32m%-22s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 	@echo ""
@@ -29,20 +29,20 @@ help: ## Show available commands
 # Development
 # ==============================================================================
 
-run: ## Run Noticeal
+run: ## Run Noticoel
 	go -C app run ./cmd
 
-dev: ## Run Noticeal with hot reload (Air)
+dev: ## Run noticoel with hot reload (Air)
 	air
 
 build: ## Build local binary
 	@mkdir -p bin
-	go -C app build -o ../bin/noticeal ./cmd
-	@echo "$(GREEN)✓ Binary generated in bin/noticeal$(RESET)"
+	go -C app build -o ../bin/noticoel ./cmd
+	@echo "$(GREEN)✓ Binary generated in bin/noticoel$(RESET)"
 
-#install: build ## Install Noticeal locally
-	#sudo install -m 755 bin/noticeal /usr/local/bin/noticeal
-	@#echo "$(GREEN)✓ Installed in /usr/local/bin/noticeal$(RESET)"
+#install: build ## Install noticoel locally
+	#sudo install -m 755 bin/noticoel /usr/local/bin/noticoel
+	@#echo "$(GREEN)✓ Installed in /usr/local/bin/noticoel$(RESET)"
 
 # ==============================================================================
 # Quality
@@ -78,13 +78,13 @@ update: ## Update dependencies
 # ==============================================================================
 
 migrate-up: ## Apply all database migrations
-	goose -dir app/migrations sqlite3 data/noticeal.db up
+	goose -dir app/migrations sqlite3 data/noticoel.db up
 
 migrate-down: ## Roll back the last migration
-	goose -dir app/migrations sqlite3 data/noticeal.db down
+	goose -dir app/migrations sqlite3 data/noticoel.db down
 
 migrate-status: ## Show migration status
-	goose -dir app/migrations sqlite3 data/noticeal.db status
+	goose -dir app/migrations sqlite3 data/noticoel.db status
 
 migrate-create: ## Create a new SQL migration (NAME=create_events_table)
 	@test -n "$(NAME)" || (echo "Usage: make migrate-create NAME=create_events_table" && exit 1)

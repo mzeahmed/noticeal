@@ -1,12 +1,12 @@
-# Noticeal Architecture
+# Noticoel Architecture
 
-> **Noticeal is a lightweight notification service for self-hosted infrastructures.**
+> **Noticoel is a lightweight notification service for self-hosted infrastructures.**
 
 ---
 
 # Introduction
 
-Noticeal receives events over HTTP and dispatches notifications to one or more channels.
+Noticoel receives events over HTTP and dispatches notifications to one or more channels.
 
 The first version has a single goal:
 
@@ -20,7 +20,7 @@ The architecture intentionally remains small and focused to provide a reliable f
 
 ## Simplicity
 
-Noticeal solves one problem well.
+Noticoel solves one problem well.
 
 Avoid unnecessary abstractions and keep every package focused on a single responsibility.
 
@@ -28,7 +28,7 @@ Avoid unnecessary abstractions and keep every package focused on a single respon
 
 ## Self-hosted First
 
-Noticeal is distributed as a single, dependency-free binary for Linux, macOS and Windows.
+Noticoel is distributed as a single, dependency-free binary for Linux, macOS and Windows.
 
 Typical deployments include:
 
@@ -44,7 +44,7 @@ A containerized deployment (Docker) may be offered later as an alternative, but 
 
 ## Lightweight
 
-Noticeal should be easy to install, configure and maintain.
+Noticoel should be easy to install, configure and maintain.
 
 It uses an embedded SQLite database for its own operational data, so no external database service is required — only the configured notification channels depend on the outside world.
 
@@ -80,7 +80,7 @@ Although the first release targets Forgejo notifications, the architecture shoul
 # Request Flow
 
 1. Forgejo sends an HTTP request.
-2. Noticeal validates the request.
+2. Noticoel validates the request.
 3. The request is converted into an Event.
 4. The Dispatcher forwards the Event to every enabled notifier.
 5. Each notifier sends its own notification.
@@ -173,7 +173,7 @@ type Notifier interface {
 # Project Structure
 
 ```
-noticeal/
+noticoel/
 
 app/
     cmd/
@@ -290,7 +290,7 @@ auth:
 
 database:
   driver: sqlite
-  path: ./data/noticeal.db
+  path: ./data/noticoel.db
 
 notifications:
 
@@ -309,7 +309,7 @@ notifications:
 
 # Deployment
 
-Noticeal ships as a single, self-contained binary. No container runtime is required.
+Noticoel ships as a single, self-contained binary. No container runtime is required.
 
 Run it from source:
 
@@ -320,15 +320,15 @@ go -C app run ./cmd
 Or build and execute the binary directly:
 
 ```
-go -C app build -o noticeal ./cmd
-./app/noticeal
+go -C app build -o noticoel ./cmd
+./app/noticoel
 ```
 
 (`make run` and `make build` wrap these same commands.)
 
-For local development, [Air](https://github.com/air-verse/air) (configured in `.air.toml`) rebuilds and restarts Noticeal automatically whenever a `.go`, `.yaml` or `.sql` file changes. It is a developer-only convenience and plays no part in the release build.
+For local development, [Air](https://github.com/air-verse/air) (configured in `.air.toml`) rebuilds and restarts Noticoel automatically whenever a `.go`, `.yaml` or `.sql` file changes. It is a developer-only convenience and plays no part in the release build.
 
-GoReleaser produces prebuilt binaries and archives for Linux, macOS and Windows on every release — see the [Releases](https://github.com/mzeahmed/noticeal/releases) page.
+GoReleaser produces prebuilt binaries and archives for Linux, macOS and Windows on every release — see the [Releases](https://github.com/mzeahmed/noticoel/releases) page.
 
 The first version is designed to run on the same server as Forgejo:
 
@@ -338,7 +338,7 @@ Forgejo
 localhost
       │
       ▼
- Noticeal
+ Noticoel
       │
       ▼
  Discord
@@ -346,7 +346,7 @@ localhost
 
 No public endpoint is required.
 
-A Docker image is not provided today but may be introduced later as an optional, additional way to deploy Noticeal.
+A Docker image is not provided today but may be introduced later as an optional, additional way to deploy Noticoel.
 
 ---
 
@@ -354,7 +354,7 @@ A Docker image is not provided today but may be introduced later as an optional,
 
 The current architecture intentionally focuses on notification delivery.
 
-As the project grows, Noticeal may evolve into a more generic event routing platform by introducing features such as:
+As the project grows, Noticoel may evolve into a more generic event routing platform by introducing features such as:
 
 - routing rules
 - multiple event sources

@@ -1,8 +1,8 @@
-# Noticeal Roadmap
+# Noticoel Roadmap
 
-> This roadmap reflects the planned evolution of Noticeal.
+> This roadmap reflects the planned evolution of Noticoel.
 >
-> Noticeal is a lightweight, self-hosted Go application distributed as a single binary. It starts as a notification service for self-hosted infrastructures and will gradually evolve into a generic event routing platform.
+> Noticoel is a lightweight, self-hosted Go application distributed as a single binary. It starts as a notification service for self-hosted infrastructures and will gradually evolve into a generic event routing platform.
 
 ---
 
@@ -91,7 +91,7 @@ Provide a web interface.
 
 # Phase 6 — Event Platform
 
-Expand Noticeal into a broader event platform.
+Expand Noticoel into a broader event platform.
 
 - [ ] Additional connectors
 - [ ] Plugins
@@ -101,6 +101,6 @@ Expand Noticeal into a broader event platform.
 
 # Long-Term Vision
 
-Noticeal begins as a lightweight notification service focused on Forgejo, distributed as a single self-hosted binary.
+Noticoel begins as a lightweight notification service focused on Forgejo, distributed as a single self-hosted binary.
 
 Over time, it will evolve into a generic event routing platform capable of receiving events from multiple systems, applying routing rules, and delivering notifications through a wide range of channels while remaining simple, lightweight and easy to run — no container required.

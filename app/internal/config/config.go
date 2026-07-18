@@ -1,4 +1,4 @@
-// Package config loads Noticeal's configuration from a YAML file into a
+// Package config loads noticoel's configuration from a YAML file into a
 // strongly typed Config.
 package config
 

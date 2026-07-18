@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/logo.png" alt="Noticeal Logo" width="220">
+<img src="assets/logo.png" alt="Noticoel Logo" width="220">
 
 <br>
 
@@ -10,11 +10,11 @@ Receive events. Notify anywhere.
 
 <br>
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/mzeahmed/noticeal)](https://goreportcard.com/report/github.com/mzeahmed/noticeal)
-[![Go Reference](https://pkg.go.dev/badge/github.com/mzeahmed/noticeal.svg)](https://pkg.go.dev/github.com/mzeahmed/noticeal)
-[![Release](https://img.shields.io/github/v/release/mzeahmed/noticeal)](https://github.com/mzeahmed/noticeal/releases)
-[![License](https://img.shields.io/github/license/mzeahmed/noticeal)](LICENSE)
-[![Go Version](https://img.shields.io/github/go-mod/go-version/mzeahmed/noticeal)](app/go.mod)
+[![Go Report Card](https://goreportcard.com/badge/github.com/mzeahmed/noticoel)](https://goreportcard.com/report/github.com/mzeahmed/noticoel)
+[![Go Reference](https://pkg.go.dev/badge/github.com/mzeahmed/noticoel.svg)](https://pkg.go.dev/github.com/mzeahmed/noticoel)
+[![Release](https://img.shields.io/github/v/release/mzeahmed/noticoel)](https://github.com/mzeahmed/noticoel/releases)
+[![License](https://img.shields.io/github/license/mzeahmed/noticoel)](LICENSE)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/mzeahmed/noticoel)](app/go.mod)
 
 </div>
 
@@ -22,7 +22,7 @@ Receive events. Notify anywhere.
 
 # Overview
 
-Noticeal is a lightweight notification service designed for self-hosted environments.
+Noticoel is a lightweight notification service designed for self-hosted environments.
 
 It receives events over HTTP and dispatches notifications to one or more channels.
 
@@ -34,7 +34,7 @@ The architecture is intentionally small, making it easy to deploy, understand an
 
 ---
 
-# Why Noticeal?
+# Why Noticoel?
 
 CI/CD pipelines continuously generate valuable events:
 
@@ -45,7 +45,7 @@ CI/CD pipelines continuously generate valuable events:
 
 Most self-hosted platforms provide webhooks, but turning those events into useful notifications often requires custom scripts.
 
-Noticeal removes that complexity by providing a single notification endpoint.
+Noticoel removes that complexity by providing a single notification endpoint.
 
 ---
 
@@ -86,15 +86,15 @@ Current features:
 
 # Installation
 
-Noticeal is distributed in two ways, both shipping the exact same application. Pick whichever fits your infrastructure.
+Noticoel is distributed in two ways, both shipping the exact same application. Pick whichever fits your infrastructure.
 
 ## Option 1 — Standalone binary
 
-Prebuilt binaries for Linux, macOS and Windows are published on the [Releases](https://github.com/mzeahmed/noticeal/releases) page.
+Prebuilt binaries for Linux, macOS and Windows are published on the [Releases](https://github.com/mzeahmed/noticoel/releases) page.
 
 ```bash
-tar -xzf noticeal_Linux_x86_64.tar.gz
-./noticeal
+tar -xzf noticoel_Linux_x86_64.tar.gz
+./noticoel
 ```
 
 ## Option 2 — OCI image (Docker)
@@ -107,15 +107,15 @@ docker run \
   -p 8080:8080 \
   -v $(pwd)/config:/app/config \
   -v $(pwd)/data:/app/data \
-  ghcr.io/mzeahmed/noticeal:latest
+  ghcr.io/mzeahmed/noticoel:latest
 ```
 
 Or with Docker Compose:
 
 ```yaml
 services:
-  noticeal:
-    image: ghcr.io/mzeahmed/noticeal:latest
+  noticoel:
+    image: ghcr.io/mzeahmed/noticoel:latest
     restart: unless-stopped
 
     volumes:
@@ -126,7 +126,7 @@ services:
       - "8080:8080"
 ```
 
-> The OCI image contains the exact same Noticeal binary as the GitHub Release. Configuration and the SQLite database should be stored on mounted volumes. Docker is one deployment option among others — not a project dependency.
+> The OCI image contains the exact same Noticoel binary as the GitHub Release. Configuration and the SQLite database should be stored on mounted volumes. Docker is one deployment option among others — not a project dependency.
 
 ---
 
@@ -144,7 +144,7 @@ Run the application:
 air
 ```
 
-Air automatically rebuilds and restarts Noticeal whenever a `.go`, `.yaml` or `.sql` file changes.
+Air automatically rebuilds and restarts Noticoel whenever a `.go`, `.yaml` or `.sql` file changes.
 
 ---
 
@@ -166,7 +166,7 @@ curl -X POST http://localhost:8080/api/v1/events \
 
 # Roadmap
 
-The long-term vision is to gradually evolve Noticeal into a generic event routing platform.
+The long-term vision is to gradually evolve Noticoel into a generic event routing platform.
 
 The first milestone focuses on solving one problem well:
 
@@ -201,7 +201,7 @@ Feel free to open an issue or submit a pull request.
 
 # Project Status
 
-⚠️ Noticeal is under active development.
+⚠️ Noticoel is under active development.
 
 The API is experimental and may change before the first stable release.
 

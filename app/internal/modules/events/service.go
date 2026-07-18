@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 
-	"github.com/mzeahmed/noticeal/internal/database/sqlc"
+	"github.com/mzeahmed/noticoel/internal/database/sqlc"
 )
 
 // Service contains the business logic of the events module. It consumes

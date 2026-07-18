@@ -1,4 +1,4 @@
-// Package database opens Noticeal's SQLite database and brings its schema
+// Package database opens noticoel's SQLite database and brings its schema
 // up to date by running embedded Goose migrations.
 package database
 

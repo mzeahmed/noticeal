@@ -1,11 +1,11 @@
 package events
 
 import (
-	"encoding/json"
 	"log/slog"
 	"net/http"
 
-	"github.com/mzeahmed/noticeal/internal/response"
+	"github.com/mzeahmed/coelakit/request"
+	"github.com/mzeahmed/coelakit/response"
 )
 
 // Handler handles all HTTP requests related to the events module.
@@ -22,20 +22,14 @@ func NewHandler(service *Service, log *slog.Logger) *Handler {
 // Create handles POST /api/v1/events.
 func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 	var e Event
-	if err := json.NewDecoder(r.Body).Decode(&e); err != nil {
-		response.JSON(w, http.StatusBadRequest, map[string]string{"error": "invalid JSON body"})
-		return
-	}
-
-	if err := e.Validate(); err != nil {
-		response.JSON(w, http.StatusBadRequest, map[string]string{"error": err.Error()})
+	if !request.Bind(w, r, &e) {
 		return
 	}
 
 	created, err := h.service.Create(r.Context(), e)
 	if err != nil {
 		h.log.Error("failed to store event", "error", err)
-		response.JSON(w, http.StatusInternalServerError, map[string]string{"error": "internal server error"})
+		response.Error(w, http.StatusInternalServerError, "internal server error")
 
 		return
 	}

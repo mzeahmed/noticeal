@@ -7,9 +7,9 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/mzeahmed/noticeal/internal/modules/auth"
-	"github.com/mzeahmed/noticeal/internal/modules/events"
-	"github.com/mzeahmed/noticeal/internal/modules/health"
+	"github.com/mzeahmed/noticoel/internal/modules/auth"
+	"github.com/mzeahmed/noticoel/internal/modules/events"
+	"github.com/mzeahmed/noticoel/internal/modules/health"
 )
 
 // New builds and returns the application's top-level http.Handler, with all

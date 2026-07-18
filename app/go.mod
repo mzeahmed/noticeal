@@ -1,8 +1,9 @@
-module github.com/mzeahmed/noticeal
+module github.com/mzeahmed/noticoel
 
 go 1.26.5
 
 require (
+	github.com/mzeahmed/coelakit v0.1.0
 	github.com/pressly/goose/v3 v3.27.2
 	gopkg.in/yaml.v3 v3.0.1
 	modernc.org/sqlite v1.54.0
