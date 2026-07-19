@@ -11,10 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Adapters for third-party webhooks — Forgejo, GitHub, GitLab, Gitea — each converting its native payload into the internal Event model behind its own `POST /api/v1/adapters/{name}` route, then flowing through the same validation, persistence and dispatch as the generic Event API
 - Infrastructure configuration (server, database, which notifiers are enabled, their credentials) can now be set entirely through `NOTICOEL_*` environment variables — a Docker deployment no longer needs to mount a config file, just an `environment:` block
+- [Troubleshooting guide](docs/troubleshooting.md), covering startup failures, silent notifier failures, and Docker deployment gotchas
 
 ### Changed
 
 - `config/config.yaml` is now optional and reserved for future business configuration; an existing pre-2.0 file (with `server:`, `database:`, `notifiers:` sections) still works as a fallback for any environment variable left unset
+- Documented the Docker Compose gotchas that come from the image having no `WORKDIR` and running as a fixed non-root UID: `NOTICOEL_DATABASE_PATH` (and a mounted `config.yaml`) need an absolute path, and a bind-mounted data directory needs a one-shot `chown` before Noticoel starts
 
 ## [0.1.3] - 2026-07-19
 

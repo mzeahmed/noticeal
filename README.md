@@ -195,25 +195,46 @@ Export the variables however fits your setup — your shell, a systemd `Environm
 
 ```yaml
 services:
+
+  # Fixes ownership of ./data before noticoel starts. The noticoel image
+  # runs as a fixed non-root UID (65532) and has no Dockerfile (built via
+  # ko) to chown at build time — without this, the bind mount inherits
+  # the host's ownership and noticoel can't write its SQLite database.
+  noticoel-init:
+    image: busybox:latest
+    command: chown -R 65532:65532 /data
+    volumes:
+      - ./data:/data
+
   noticoel:
     image: ghcr.io/mzeahmed/noticoel:latest
     restart: unless-stopped
+
+    depends_on:
+      noticoel-init:
+        condition: service_completed_successfully
 
     environment:
       NOTICOEL_AUTH_TOKEN: ${NOTICOEL_AUTH_TOKEN}
       NOTICOEL_TELEGRAM_BOT_TOKEN: ${NOTICOEL_TELEGRAM_BOT_TOKEN}
       NOTICOEL_TELEGRAM_CHAT_ID: ${NOTICOEL_TELEGRAM_CHAT_ID}
+      # Absolute path: the image has no WORKDIR, so a relative path would
+      # resolve against "/" (the root, not writable by the image's
+      # non-root user).
+      NOTICOEL_DATABASE_PATH: /data/noticoel.db
 
     volumes:
-      - ./data:/app/data
+      - ./data:/data
 
     ports:
       - "8080:8080"
 ```
 
+`noticoel-init` only matters for a bind mount like `./data` above — Docker gives it the host directory's ownership, not the image's. Skip it if you use a named volume instead.
+
 No config file to mount — the `environment:` block is the entire configuration. Docker Compose injects those values into the container's environment (resolved from your shell or a `.env` file next to `docker-compose.yml`). Noticoel itself has no notion of Docker or `.env` files — it only ever reads real environment variables.
 
-Only add a `- ./config:/app/config` volume if you're also using the optional `config.yaml` below.
+Only add a `- ./config:/config` volume if you're also using the optional `config.yaml` below — same reasoning, an absolute container path.
 
 ## Local secrets (.env)
 
@@ -370,6 +391,7 @@ Future versions will introduce:
 
 - [Architecture](docs/architecture.md)
 - [Roadmap](docs/roadmap.md)
+- [Troubleshooting](docs/troubleshooting.md)
 
 ---
 
