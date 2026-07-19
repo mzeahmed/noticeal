@@ -120,18 +120,25 @@ Application version.
 
 ## Event
 
-The Event is the internal representation of a notification request.
+The Event is the internal representation of a notification request — the common shape every producer (Forgejo, Yoostart, a monitoring system...) publishes to Noticoel.
 
 ```go
 type Event struct {
-    Source  string            `json:"source"`
-    Type    string            `json:"type"`
-    Status  string            `json:"status"`
-    Title   string            `json:"title"`
-    Message string            `json:"message"`
-    Data    map[string]string `json:"data,omitempty"`
+    Source   string            `json:"source"`
+    Category string            `json:"category,omitempty"`
+    Type     string            `json:"type"`
+    Severity Severity          `json:"severity"`
+    Title    string            `json:"title"`
+    Message  string            `json:"message"`
+    Metadata map[string]string `json:"metadata,omitempty"`
 }
 ```
+
+- **Source** — the application or service that published the event.
+- **Category** — an optional grouping for related event types (`billing`, `ci`, `auth`...).
+- **Type** — the specific event within Source/Category, e.g. `subscription.created`.
+- **Severity** — a closed set of values (`info`, `warning`, `error`, `critical`) driving how notifiers present the event and, later, routing rules.
+- **Metadata** — arbitrary producer-specific context that doesn't belong in Title/Message.
 
 Every notifier receives the same Event object.
 

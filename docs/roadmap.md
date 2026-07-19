@@ -81,7 +81,7 @@ Improve reliability and operational readiness.
 - [ ] Delivery status
 - [ ] Metrics
 - [x] Health checks
-- [ ] Graceful shutdown
+- [x] Graceful shutdown
 - [ ] Structured logging improvements
 
 ---

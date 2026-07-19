@@ -40,7 +40,7 @@ func (n *Notifier) Notify(ctx context.Context, msg notifier.Message) notifier.Re
 		ChatID: n.config.ChatID,
 		Text: fmt.Sprintf(
 			"[%s] %s\n\n%s",
-			msg.Status,
+			msg.Severity,
 			msg.Title,
 			msg.Message,
 		),

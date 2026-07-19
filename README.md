@@ -256,8 +256,9 @@ curl -X POST http://localhost:8080/api/v1/events \
   -H "Content-Type: application/json" \
   -d '{
     "source":"forgejo",
-    "type":"workflow",
-    "status":"success",
+    "category":"ci",
+    "type":"workflow.succeeded",
+    "severity":"info",
     "title":"Deployment completed",
     "message":"BookingApp deployed successfully"
   }'
@@ -270,8 +271,9 @@ curl -X POST http://localhost:8080/api/v1/events \
   -H "Content-Type: application/json" \
   -d '{
     "source":"yoostart",
+    "category":"billing",
     "type":"subscription.created",
-    "status":"info",
+    "severity":"info",
     "title":"New Premium subscription",
     "message":"A new Premium subscription has been purchased."
   }'
